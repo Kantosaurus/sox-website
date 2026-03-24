@@ -17,10 +17,10 @@ interface Question {
 }
 
 const domainLabels: Record<ControlDomain, string> = {
-  MC: "Management Controls",
-  OS: "Operational Security",
-  DB: "Database Controls",
-  MA: "Monitoring & Audit",
+  MC: "Manage Change",
+  OS: "Operating System",
+  DB: "Database",
+  MA: "Manage Access",
   ALL: "All Domains",
 };
 
@@ -33,152 +33,152 @@ const domainColors: Record<ControlDomain, string> = {
 };
 
 const allQuestions: Question[] = [
-  // ===== MC — Management Controls =====
+  // ===== MC — Manage Change =====
   {
-    q: "Sea Limited (NYSE: SE) is the parent company of Shopee, Garena, and Monee. Under SOX, who at Sea Ltd bears ultimate responsibility for certifying the accuracy of consolidated financial statements?",
-    options: ["The internal audit team", "CEO (Forrest Li) and CFO", "The PCAOB", "Each subsidiary CEO independently"],
+    q: "Shopee's engineering team needs to deploy a hotfix to the payment processing module in production. Under SOX 404 Manage Change controls, what is required before the change goes live?",
+    options: ["The developer who wrote the fix can deploy immediately", "Formal change request with documented approval, impact assessment, testing evidence, and segregation between developer and deployer", "Only a verbal approval from the team lead", "Deploy to production first, then document the change retroactively"],
     answer: 1,
-    explanation: "Under SOX Section 302, the CEO and CFO of the publicly listed entity (Sea Limited) must personally certify the accuracy and completeness of consolidated financial reports, which include all subsidiaries — Shopee, Garena, and Monee.",
+    explanation: "SOX 404 requires that all changes to financially significant systems follow a formal change management process. This includes documented change requests, risk/impact assessment, independent testing, approval from authorized personnel, and segregation of duties — the person who develops the change must not be the one who promotes it to production.",
     domain: "MC",
   },
   {
-    q: "Shopee operates across 13+ markets in Southeast Asia and Latin America. What is the primary SOX management control challenge for Shopee's multi-jurisdictional operations?",
-    options: ["Language translation of financial reports", "Ensuring consistent internal controls over financial reporting (ICFR) across all regional entities", "Hiring local auditors in every country", "Filing separate 10-K reports per country"],
+    q: "Garena needs to update the revenue recognition logic in Free Fire's in-app purchase system. What Manage Change control specifically addresses the risk of unauthorized code changes affecting financial data?",
+    options: ["Code reviews are optional for experienced developers", "Version-controlled source code with mandatory peer review, branch protection rules, and automated build pipelines that enforce approval gates before production deployment", "Only the project manager needs to approve", "Changes to financial systems don't require special change controls"],
     answer: 1,
-    explanation: "For a multinational subsidiary like Shopee, SOX requires consistent ICFR across all material entities. Management must ensure that each regional operation follows the same control framework and that material weaknesses in any market are escalated and reported in Sea's consolidated assessment.",
+    explanation: "Under SOX 404, changes to systems that process financial data require enhanced controls. Version control provides an audit trail, mandatory code reviews ensure independent verification, branch protection prevents unapproved merges, and CI/CD approval gates enforce that no change reaches production without proper authorization.",
     domain: "MC",
   },
   {
-    q: "Garena's digital entertainment segment generates revenue through in-game purchases (e.g., Free Fire). Under SOX management controls, how should Garena handle revenue recognition for virtual goods?",
-    options: ["Recognize all revenue at point of purchase", "Apply ASC 606 with controls ensuring revenue is recognized over the service period for consumable items", "Defer all revenue until the game is discontinued", "Let each game studio decide independently"],
+    q: "MariBank (under Monee) receives a critical security patch for its core banking platform. The patch must be applied urgently. How should this emergency change be handled under SOX 404?",
+    options: ["Emergency changes bypass all controls", "Apply the patch immediately using an emergency change process with post-implementation review, retroactive documentation, and ratification by the Change Advisory Board within a defined timeframe", "Wait for the next scheduled change window regardless of urgency", "Only the DBA can decide to apply emergency patches"],
     answer: 1,
-    explanation: "SOX requires robust management controls over revenue recognition. For virtual goods under ASC 606, Garena must have controls ensuring consumable items are recognized over their estimated usage period, while durable items may be recognized differently. This is a key control area for gaming companies.",
+    explanation: "SOX 404 recognizes that emergency changes are sometimes necessary. However, they must still follow a defined emergency change process: the change is applied under controlled conditions, fully documented after the fact, reviewed for unintended impacts, and formally ratified by the CAB. Complete bypass of controls is never acceptable.",
     domain: "MC",
   },
   {
-    q: "Monee (formerly SeaMoney) operates digital financial services including MariBank. What additional SOX management control layer applies to Monee compared to Shopee?",
-    options: ["Monee is exempt from SOX as a fintech", "Dual compliance with financial services regulations (MAS) AND SOX internal controls", "Only anti-money laundering controls apply", "Monee files separately with the SEC"],
+    q: "Sea Limited uses a shared ERP system for consolidated financial reporting across Shopee, Garena, and Monee. A scheduled ERP upgrade requires schema changes. What SOX 404 Manage Change control is most critical?",
+    options: ["Only testing in the development environment is sufficient", "Full regression testing in a production-mirror environment, with documented test results, data migration validation, rollback plan, and sign-off from finance stakeholders before go-live", "The ERP vendor handles all testing", "Schema changes don't affect financial controls"],
     answer: 1,
-    explanation: "Monee faces overlapping compliance requirements: SOX ICFR as a subsidiary of NYSE-listed Sea Ltd, PLUS financial services regulations from the Monetary Authority of Singapore (MAS) and other regulators. Management controls must address both frameworks simultaneously.",
+    explanation: "ERP changes directly impact financial reporting integrity. SOX 404 requires comprehensive testing in a production-equivalent environment, validated data migration (especially for financial data), a documented rollback plan in case of failure, and formal sign-off from business owners who rely on the system for financial reporting.",
     domain: "MC",
   },
   {
-    q: "Sea Limited's Audit Committee oversees SOX compliance across all subsidiaries. Which of these is NOT typically a responsibility of Sea's Audit Committee?",
-    options: ["Appointing and overseeing the external auditor", "Reviewing Shopee's quarterly GMV targets", "Overseeing the internal audit function", "Evaluating material weaknesses in ICFR"],
+    q: "Shopee's platform team implements automated CI/CD pipelines. Under SOX 404, what change management risk does automation introduce that must be controlled?",
+    options: ["Automation eliminates all change management risks", "Risk that developers can configure pipelines to bypass approval gates, requiring controls such as pipeline configuration reviews, immutable deployment logs, and segregation between pipeline administrators and developers", "Automated deployments don't need change tickets", "Only manual deployments need SOX controls"],
     answer: 1,
-    explanation: "The Audit Committee's SOX responsibilities include auditor oversight, internal audit, whistleblower mechanisms, and ICFR evaluation. Operational metrics like Shopee's GMV targets are business KPIs, not Audit Committee responsibilities under SOX.",
+    explanation: "While CI/CD automation improves consistency, it introduces the risk that approval gates can be misconfigured or bypassed. SOX 404 requires controls over the pipeline itself: who can modify pipeline configurations, immutable deployment audit trails, and ensuring the person who writes code cannot also control the deployment pipeline.",
     domain: "MC",
   },
 
-  // ===== OS — Operational Security =====
+  // ===== MA — Manage Access =====
   {
-    q: "Shopee processes millions of e-commerce transactions daily across Southeast Asia. Under SOX operational security controls, what is the most critical control for Shopee's payment processing systems?",
-    options: ["Monthly manual reconciliation", "Automated segregation of duties with real-time transaction logging and access controls", "Annual penetration testing only", "Relying on payment gateway vendors for all controls"],
+    q: "A Shopee finance analyst changes roles to the marketing department. Under SOX 404 Manage Access controls, what must happen to their system access?",
+    options: ["They keep all existing access plus get new access for marketing", "A formal access review is triggered: revoke finance system access no longer needed for the new role, and provision only the access required for marketing duties", "Access changes are handled during the annual review", "The manager can decide informally what to keep"],
     answer: 1,
-    explanation: "SOX requires continuous operational controls over financially significant systems. For Shopee's payment processing, automated segregation of duties prevents unauthorized transactions, while real-time logging ensures a complete audit trail. Annual testing alone is insufficient for high-volume e-commerce.",
-    domain: "OS",
+    explanation: "SOX 404 requires timely access modifications when employees change roles (role-based access control). The principle of least privilege means the analyst should lose finance system access they no longer need and only receive marketing-relevant access. Waiting for an annual review creates a window where excessive access exists — a control gap.",
+    domain: "MA",
   },
   {
-    q: "Garena's Free Fire has 100M+ daily active users generating in-game purchase data. What SOX operational security control is essential for protecting this financial data?",
-    options: ["Encrypting only credit card numbers", "End-to-end encryption, access controls, and automated monitoring of all systems processing financial transactions related to virtual purchases", "Relying on Google Play / App Store security", "Physical security of data centers only"],
+    q: "Garena's production database containing Free Fire transaction records requires privileged (DBA) access for maintenance. What SOX 404 access control is required for privileged accounts?",
+    options: ["DBAs should have permanent unrestricted access for efficiency", "Privileged access must use dedicated admin accounts (separate from daily-use accounts), with multi-factor authentication, session logging, and periodic access recertification", "Shared DBA credentials are acceptable if only the DBA team knows them", "Privileged access controls only apply to financial applications, not databases"],
     answer: 1,
-    explanation: "SOX operational security requires comprehensive protection of all systems that process, store, or transmit financial data. For Garena, this includes in-app purchase records, revenue recognition data, and payment processing — requiring encryption, access controls, and monitoring beyond what app stores provide.",
-    domain: "OS",
+    explanation: "SOX 404 requires strict controls over privileged access to systems containing financial data. Named (non-shared) admin accounts ensure accountability, MFA prevents unauthorized use, session logging provides audit trails, and periodic recertification confirms the access is still justified. Shared credentials violate accountability requirements.",
+    domain: "MA",
   },
   {
-    q: "MariBank (under Monee) handles customer deposits and lending. Which SOX operational security control specifically applies to MariBank's digital banking infrastructure?",
-    options: ["Annual SOC 1 report from cloud providers only", "Logical access management with multi-factor authentication, privileged access monitoring, and automated alerts for unusual financial system access", "Firewall configuration reviews once per year", "Outsourcing all security to MAS"],
+    q: "MariBank must comply with both MAS regulations and SOX 404 for access management. An employee is terminated. What is the SOX 404 requirement for access revocation?",
+    options: ["Access can be removed within 30 days", "Immediate revocation of all system access upon termination, with documented evidence of the revocation timestamp and confirmation that no access remains", "Only revoke access to financial systems, other systems can wait", "HR handles access revocation as part of the offboarding checklist"],
     answer: 1,
-    explanation: "Digital banking requires stringent SOX operational controls: MFA for all financial system access, continuous monitoring of privileged accounts, and real-time alerting. These controls protect the integrity of financial data that flows into Sea's consolidated statements.",
-    domain: "OS",
+    explanation: "SOX 404 requires prompt (typically same-day) access revocation for terminated employees, especially for systems that process or store financial data. Documented evidence must show when access was disabled and that no residual access remains. Delays create risk of unauthorized access to financial systems.",
+    domain: "MA",
   },
   {
-    q: "Shopee's seller payout system disburses funds to millions of merchants. What SOX control addresses the risk of fraudulent disbursements?",
-    options: ["Manual approval for every transaction", "Automated validation rules with segregation of duties between transaction initiation, approval, and disbursement, plus exception reporting", "Disbursing only once per month", "Requiring sellers to verify each payment"],
+    q: "Sea Limited conducts a periodic user access review (UAR) across Shopee, Garena, and Monee. What SOX 404 requirement governs this process?",
+    options: ["Access reviews are only needed when auditors request them", "Management must periodically recertify that all user access to financially significant systems is appropriate, with evidence of review, remediation of exceptions, and sign-off by system/data owners", "IT can self-certify that access is correct", "Only privileged accounts need periodic review"],
     answer: 1,
-    explanation: "SOX requires controls that prevent and detect unauthorized disbursements at scale. For Shopee's high-volume seller payouts, automated validation rules with proper segregation of duties and exception-based reporting provide effective control without creating operational bottlenecks.",
-    domain: "OS",
+    explanation: "SOX 404 requires regular user access recertification for all access to in-scope systems — not just privileged accounts. Business owners (not IT) must review and confirm that each user's access is appropriate for their current role. Exceptions must be remediated, and the entire process must be documented as audit evidence.",
+    domain: "MA",
   },
   {
-    q: "Sea Limited operates across multiple cloud environments for Shopee, Garena, and Monee. What is the key SOX operational security concern for Sea's multi-cloud architecture?",
-    options: ["Choosing the cheapest cloud provider", "Ensuring consistent security controls, access management, and audit logging across all cloud environments that host financially significant applications", "Using only one cloud provider", "Cloud security is the provider's responsibility, not Sea's"],
+    q: "Shopee uses service accounts (non-human accounts) for automated batch jobs that process financial transactions. What SOX 404 access control applies to service accounts?",
+    options: ["Service accounts don't need access controls since no human uses them", "Service accounts must have documented owners, use strong authentication (API keys/certificates rotated periodically), follow least privilege, and be included in periodic access reviews", "Service accounts can use the same credentials as the developer who created them", "Only service accounts with write access need controls"],
     answer: 1,
-    explanation: "Under SOX, Sea retains responsibility for controls over financially significant systems regardless of hosting. Consistent security baselines, centralized access management, and unified audit logging across all cloud environments are essential for demonstrating effective ICFR.",
-    domain: "OS",
+    explanation: "SOX 404 treats service accounts as a significant access risk because they often have broad system access and run unattended. Each must have a documented business owner, use strong credentials that are regularly rotated, follow least privilege principles, and be included in periodic access reviews just like human accounts.",
+    domain: "MA",
   },
 
-  // ===== DB — Database Controls =====
+  // ===== DB — Database =====
   {
-    q: "Shopee's e-commerce platform stores order, payment, and financial data across distributed databases. What SOX database control ensures data integrity for financial reporting?",
-    options: ["Daily full database backups only", "Automated reconciliation controls between transactional databases and financial reporting systems, with change data capture and integrity checks", "Allowing developers direct access to production databases", "Manual data entry verification"],
+    q: "Shopee's order database stores millions of transactions daily across 13+ markets. What SOX 404 database control ensures the completeness and accuracy of financial data?",
+    options: ["Daily full database backups are sufficient", "Automated reconciliation controls that compare record counts and financial totals between source transaction databases and downstream reporting/GL systems, with exception alerting for discrepancies", "Developers manually verify data accuracy monthly", "The application layer guarantees database integrity so no DB-level controls are needed"],
     answer: 1,
-    explanation: "SOX requires controls ensuring data completeness and accuracy from source systems to financial reports. For Shopee's distributed architecture, automated reconciliation between transactional DBs and reporting systems, combined with change data capture, ensures no financial data is lost or altered in transit.",
+    explanation: "SOX 404 requires controls that verify the completeness and accuracy of financial data as it flows from source systems to financial reports. Automated reconciliation between transaction databases and reporting systems catches missing or altered records. Application-layer controls alone are insufficient — database-level verification is required.",
     domain: "DB",
   },
   {
-    q: "Garena needs to track virtual currency transactions (e.g., Diamonds in Free Fire) for revenue recognition. What database control is most important for SOX compliance?",
-    options: ["Storing all data in a single table", "Immutable transaction logs with database audit trails that capture all changes to virtual currency balances and purchase records", "Allowing game developers to modify transaction records for bug fixes", "Backing up data weekly"],
+    q: "Garena's Free Fire virtual currency (Diamonds) database must maintain an audit trail for SOX 404 compliance. What database audit control is required?",
+    options: ["Application-level logging is sufficient", "Database-level audit logging that captures all DML operations (INSERT, UPDATE, DELETE) on financial tables, including the user/account that made the change, timestamp, and before/after values", "Only DDL changes (table structure) need auditing", "Audit logs can be stored in the same database they're auditing"],
     answer: 1,
-    explanation: "Virtual currency transactions directly impact revenue recognition. SOX requires immutable audit trails for financial data — meaning once a Diamond purchase is recorded, it cannot be altered without detection. Database audit trails must capture who changed what, when, and why.",
+    explanation: "SOX 404 requires database-level audit trails for financial data that are independent of the application layer. All data modifications must be logged with who, when, and what changed (before/after values). Storing audit logs separately from the audited database prevents tampering and ensures log integrity.",
     domain: "DB",
   },
   {
-    q: "MariBank stores customer financial data including deposits, loans, and interest calculations. Under SOX database controls, what is required for direct database modifications?",
-    options: ["Any DBA can make changes as needed", "Formal change management process with documented approval, pre/post change validation, segregation between requestor and executor, and complete audit trail", "Changes are fine as long as they're reversed if wrong", "Only the application should modify data; direct DB access is never permitted"],
+    q: "A DBA at Monee needs to run a direct SQL update on the MariBank loan interest calculation table to correct an error. Under SOX 404 database controls, what process must be followed?",
+    options: ["The DBA runs the update and informs the team afterward", "A formal data correction request must be submitted, approved by a business owner, the SQL must be reviewed by a second DBA, executed with full audit logging, and validated with before/after evidence", "Direct database updates are always prohibited", "Only the application team can approve database changes"],
     answer: 1,
-    explanation: "SOX requires strict change management for financial databases. Direct modifications to MariBank's data must follow a formal process: documented business justification, independent approval, segregation of duties, pre/post validation, and a complete audit trail. While minimizing direct access is best practice, a controlled process must exist.",
+    explanation: "SOX 404 permits direct database modifications but requires strict controls: a documented business justification, approval by the data/business owner, independent review of the SQL statement, execution under audit logging, and validation comparing before and after states. This ensures data integrity while allowing necessary corrections.",
     domain: "DB",
   },
   {
-    q: "Sea Limited consolidates financial data from Shopee (e-commerce), Garena (gaming), and Monee (fintech) into a single reporting system. What database control addresses intercompany elimination risks?",
-    options: ["Manual spreadsheet reconciliation", "Automated intercompany matching and elimination controls in the consolidation database with exception reporting for mismatches", "Each subsidiary reports independently to the SEC", "Only eliminating transactions above $1 million"],
+    q: "Sea Limited's financial consolidation requires extracting data from Shopee, Garena, and Monee databases into the group reporting system. What SOX 404 database control governs ETL (Extract, Transform, Load) processes?",
+    options: ["ETL jobs just need to run on schedule", "ETL processes must have validation controls including row count reconciliation, hash/checksum verification, error handling with alerting, and documented transformation logic that is change-controlled", "The data warehouse team is responsible for accuracy, not the source systems", "ETL processes are infrastructure — they don't fall under SOX"],
     answer: 1,
-    explanation: "Intercompany transactions between Sea's subsidiaries (e.g., Shopee using Monee's payment services, or Garena advertising on Shopee) must be properly eliminated in consolidation. Automated matching controls with exception reporting ensure completeness and accuracy of eliminations — a key SOX risk area for conglomerates.",
+    explanation: "ETL processes are critical data integrity controls under SOX 404. Financial data moving between systems must be validated at each stage: row counts confirm completeness, checksums detect corruption, error handling prevents silent failures, and transformation logic must be documented and version-controlled as it directly affects financial reporting.",
     domain: "DB",
   },
   {
-    q: "Shopee's database infrastructure must support SOX data retention requirements. What is the minimum retention period for financial records under SOX Section 802?",
+    q: "Shopee's database infrastructure must enforce SOX 404 data retention. What is the minimum retention period for audit workpapers and financial records under SOX Section 802?",
     options: ["3 years", "5 years", "7 years", "10 years"],
     answer: 2,
-    explanation: "SOX Section 802 requires retention of audit and review workpapers for at least 7 years. While general business records may have shorter requirements, financial records, emails related to audits, and workpapers must be retained for 7 years. Shopee's databases must enforce appropriate retention policies.",
+    explanation: "SOX Section 802 mandates that audit and review workpapers be retained for at least 7 years. Destruction of these records can result in criminal penalties of up to 20 years imprisonment. Shopee's database retention policies must enforce this minimum across all financial data stores.",
     domain: "DB",
   },
 
-  // ===== MA — Monitoring & Audit =====
+  // ===== OS — Operating System =====
   {
-    q: "Sea Limited's internal audit team needs to assess SOX controls across Shopee, Garena, and Monee. What approach is most effective for a conglomerate with diverse business lines?",
-    options: ["Identical audit procedures for all subsidiaries", "Risk-based scoping that considers each subsidiary's unique financial processes, materiality, and risk profile, with tailored testing procedures", "Auditing only the largest subsidiary (Shopee)", "Outsourcing all internal audit to the external auditor"],
+    q: "Shopee's payment processing servers run on Linux. Under SOX 404 Operating System controls, what hardening measure is required for these financially significant systems?",
+    options: ["Default OS installation is sufficient", "OS hardening based on industry benchmarks (e.g., CIS), including disabling unnecessary services, removing default accounts, enforcing strong password policies, and applying security patches within defined SLAs", "Only internet-facing servers need hardening", "The cloud provider handles OS security entirely"],
     answer: 1,
-    explanation: "A risk-based approach recognizes that Shopee (e-commerce), Garena (gaming), and Monee (fintech) have fundamentally different financial processes and risks. Effective SOX monitoring requires tailored audit procedures that address each subsidiary's specific control environment and material accounts.",
-    domain: "MA",
+    explanation: "SOX 404 requires that operating systems hosting financially significant applications are hardened according to industry standards. This includes removing attack surface (unused services/accounts), enforcing authentication policies, and timely patch management. The organization retains responsibility even in cloud environments (shared responsibility model).",
+    domain: "OS",
   },
   {
-    q: "Shopee's ShopeePay processes digital wallet transactions across multiple countries. What continuous monitoring control should be in place for SOX compliance?",
-    options: ["Quarterly manual review of sample transactions", "Automated transaction monitoring with real-time anomaly detection, daily reconciliation dashboards, and automated escalation of exceptions exceeding defined thresholds", "Annual audit by external auditors only", "Monitoring only transactions above $10,000"],
+    q: "Garena's game servers and financial processing systems share the same OS environment. What SOX 404 OS-level control addresses this risk?",
+    options: ["Sharing environments saves costs and is acceptable", "Segregation of environments — financially significant systems must be isolated from non-financial workloads through separate servers, VLANs, or containerization with enforced network policies", "A firewall between the systems is sufficient", "Only the database needs to be separated, not the OS"],
     answer: 1,
-    explanation: "For high-volume fintech operations like ShopeePay, SOX requires continuous monitoring — not just periodic reviews. Automated anomaly detection, daily reconciliations, and threshold-based escalation provide real-time visibility into control effectiveness and enable timely identification of issues.",
-    domain: "MA",
+    explanation: "SOX 404 requires that financially significant systems are adequately segregated from non-financial workloads to prevent unauthorized access and reduce the blast radius of security incidents. Co-mingling game servers with financial systems creates unacceptable risk — a compromise of game servers could expose financial data.",
+    domain: "OS",
   },
   {
-    q: "Garena discovers a bug that caused Free Fire to double-count certain in-app purchases for 2 weeks. Under SOX monitoring and audit requirements, what must happen?",
-    options: ["Fix the bug quietly and adjust next quarter", "Assess materiality, quantify the financial impact, evaluate whether it constitutes a material weakness or significant deficiency, remediate, and disclose if material", "Report it to the FBI immediately", "Garena is not subject to SOX monitoring"],
+    q: "MariBank's core banking application runs on servers managed by Monee's infrastructure team. What SOX 404 OS control governs system administrator access to these servers?",
+    options: ["Sysadmins need root access at all times for troubleshooting", "Privileged OS access must use named accounts (not shared root), require MFA, be time-limited through just-in-time (JIT) provisioning where possible, and all sessions must be logged and periodically reviewed", "Shared root passwords are acceptable if rotated quarterly", "OS-level access doesn't impact financial controls"],
     answer: 1,
-    explanation: "SOX monitoring requires that control deficiencies are properly assessed and classified. A revenue double-counting bug must be evaluated for materiality, the financial impact quantified, and the root cause addressed. If material, it must be disclosed as a material weakness in Sea's ICFR assessment.",
-    domain: "MA",
+    explanation: "SOX 404 requires strict controls over privileged OS access on financial systems. Named accounts ensure accountability, MFA prevents credential theft, JIT access reduces standing privilege risk, and session logging provides audit evidence. Shared root access violates accountability principles regardless of rotation frequency.",
+    domain: "OS",
   },
   {
-    q: "Monee's MariBank undergoes both MAS regulatory examinations and SOX audits. How should Sea's monitoring framework handle overlapping audit requirements?",
-    options: ["Conduct completely separate audits with no coordination", "Implement an integrated assurance framework that maps MAS regulatory controls to SOX ICFR requirements, avoiding duplicate testing where controls satisfy both frameworks", "Prioritize MAS over SOX since it's a bank", "Let external auditors figure it out"],
+    q: "Sea Limited's security team discovers a critical OS vulnerability (CVE) affecting servers across Shopee, Garena, and Monee. What SOX 404 OS control governs the response?",
+    options: ["Patch during the next quarterly maintenance window", "A defined patch management process with risk-based SLAs — critical vulnerabilities on financial systems must be patched within defined timeframes (e.g., 72 hours), with documented risk acceptance if delayed", "Only patch if an exploit is actively being used", "The cloud provider patches automatically, no action needed"],
     answer: 1,
-    explanation: "An integrated assurance framework reduces audit fatigue and cost while ensuring comprehensive coverage. Many MAS controls (e.g., access management, transaction monitoring, data integrity) overlap with SOX requirements. Mapping these allows efficient testing that satisfies both regulators.",
-    domain: "MA",
+    explanation: "SOX 404 requires a documented patch management program with risk-based timelines. Critical vulnerabilities on financially significant systems must be addressed urgently — typically within 72 hours or less. If patching cannot meet the SLA, a formal risk acceptance with compensating controls must be documented and approved by management.",
+    domain: "OS",
   },
   {
-    q: "Sea Limited's external auditor identifies a significant deficiency in Shopee's accounts payable process during the SOX 404 audit. What is the required next step?",
-    options: ["Ignore it if the dollar amount is small", "Management must evaluate whether it could be a material weakness, develop a remediation plan with timeline, and disclose in the annual 10-K filing if it rises to material weakness level", "Switch to a different external auditor", "Only report it to the Audit Committee verbally"],
+    q: "Shopee runs batch jobs on Linux servers that generate financial reports overnight. What SOX 404 OS control ensures the integrity of these scheduled jobs?",
+    options: ["Cron jobs set up by any sysadmin are fine", "Job scheduling must be change-controlled, with restricted access to modify cron/scheduler configurations, execution logs retained for audit, and automated alerting if critical financial jobs fail or are modified", "Only the output of batch jobs matters, not how they run", "Batch job controls are operational, not SOX-relevant"],
     answer: 1,
-    explanation: "Under SOX 404, significant deficiencies must be reported to the Audit Committee and management. Management evaluates whether it could be a material weakness (reasonably possible that a material misstatement would not be prevented or detected). Remediation plans must be documented, and material weaknesses must be disclosed in the 10-K.",
-    domain: "MA",
+    explanation: "SOX 404 considers batch job integrity critical for financial reporting. If scheduled jobs that generate financial data are modified or fail without detection, it can lead to inaccurate financial statements. Controls must cover who can modify job schedules, logging of all executions, and alerting on failures or unauthorized changes.",
+    domain: "OS",
   },
 ];
 
@@ -365,15 +365,15 @@ export default function QuizPage() {
                     <p className="text-[#999] text-sm">{domainLabels[d]}</p>
                     {d !== "ALL" && (
                       <p className="text-[#555] text-xs mt-1">
-                        {d === "MC" && "Governance, certifications, audit committees, org structure"}
-                        {d === "OS" && "Access controls, segregation of duties, system security"}
-                        {d === "DB" && "Data integrity, audit trails, retention, reconciliation"}
-                        {d === "MA" && "Internal audit, continuous monitoring, deficiency assessment"}
+                        {d === "MC" && "Change requests, approvals, testing, emergency changes, CI/CD controls"}
+                        {d === "OS" && "OS hardening, patching, privileged access, environment segregation, batch jobs"}
+                        {d === "DB" && "Data integrity, audit trails, direct SQL controls, ETL validation, retention"}
+                        {d === "MA" && "User provisioning, access reviews, privileged accounts, service accounts, termination"}
                       </p>
                     )}
                     {d === "ALL" && (
                       <p className="text-[#555] text-xs mt-1">
-                        All control domains — MC, OS, DB, MA — comprehensive assessment
+                        All SOX 404 IT General Control domains — MC, MA, DB, OS
                       </p>
                     )}
                   </motion.button>
